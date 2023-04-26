@@ -57,7 +57,6 @@ const LoginModal = () => {
       if (callback?.error) {
         toast.error(callback.error);
       }
-
     });
   };
 
@@ -96,8 +95,7 @@ const LoginModal = () => {
         outline
         label='Continue with Google'
         icon={FcGoogle}
-        onClick={() => {}}
-        //   onClick={() => signIn('google')}
+        onClick={() => signIn('google')}
       />
       <Button
         outline
