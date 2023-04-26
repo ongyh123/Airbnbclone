@@ -20,10 +20,12 @@ import Input from '../inputs/Input';
 import Button from '../Button';
 import { ok } from 'assert';
 import { useRouter } from 'next/navigation';
+import { BiToggleRight } from 'react-icons/bi';
 
 const LoginModal = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
 
@@ -60,10 +62,10 @@ const LoginModal = () => {
     });
   };
 
-  //   const onToggle = useCallback(() => {
-  //     registerModal.onClose();
-  //     loginModal.onOpen();
-  //   }, [registerModal, loginModal]);
+  const onToggle = useCallback(() => {
+    loginModal.onClose();
+    registerModal.onOpen();
+  }, [loginModal, registerModal]);
 
   const bodyContent = (
     <div className='flex flex-col gap-4'>
@@ -112,16 +114,16 @@ const LoginModal = () => {
           '
       >
         <p>
-          Already have an account?
+          First time using Airbnb?
           <span
-            onClick={registerModal.onClose}
+            onClick={onToggle}
             className='
                 text-neutral-800
                 cursor-pointer
                 hover:underline
               '
           >
-            Log in
+            Create an account
           </span>
         </p>
       </div>

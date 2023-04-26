@@ -12,7 +12,7 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-hot-toast';
 
-// import useLoginModal from "@/app/hooks/useLoginModal";
+import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 
 import Modal from './Modal';
@@ -23,7 +23,7 @@ import Button from '../Button';
 const RegisterModal = () => {
   const [isLoading, setIsLoading] = useState(false);
   const registerModal = useRegisterModal();
-  //   const loginModal = useLoginModal();
+  const loginModal = useLoginModal();
 
   //establish form control function
   const {
@@ -45,9 +45,8 @@ const RegisterModal = () => {
     axios
       .post('/api/register', data)
       .then(() => {
-        // toast.success('Registered!');
+        toast.success('Registered!');
         registerModal.onClose();
-        // loginModal.onOpen();
       })
       .catch((error) => {
         toast.error('Something went wrong');
@@ -58,10 +57,10 @@ const RegisterModal = () => {
       });
   };
 
-  //   const onToggle = useCallback(() => {
-  //     registerModal.onClose();
-  //     loginModal.onOpen();
-  //   }, [registerModal, loginModal]);
+  const onToggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  }, [registerModal, loginModal]);
 
   const bodyContent = (
     <div className='flex flex-col gap-4'>
@@ -120,7 +119,7 @@ const RegisterModal = () => {
         <p>
           Already have an account?
           <span
-            onClick={registerModal.onClose}
+            onClick={onToggle}
             className='
                 text-neutral-800
                 cursor-pointer
