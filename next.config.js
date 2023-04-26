@@ -3,7 +3,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  image:{
+  images:{
     domains:[
       "avatars.githubusercontent.com",
     ]
