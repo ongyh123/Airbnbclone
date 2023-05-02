@@ -1,10 +1,10 @@
 'use client';
 
-// import axios from 'axios';
-// import { toast } from 'react-hot-toast';
+import axios from 'axios';
+import { toast } from 'react-hot-toast';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import dynamic from 'next/dynamic'
-// import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState, useMemo } from 'react';
 
 import useRentModal from '@/app/hooks/useRentModal';
@@ -31,8 +31,8 @@ enum STEPS {
 const RentModal = () => {
   const rentModal = useRentModal();
   const [step, setStep] = useState(STEPS.CATEGORY);
-  //   const router = useRouter();
-    const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -83,28 +83,28 @@ const RentModal = () => {
     setStep((value) => value + 1);
   };
 
-  //   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-  //     if (step !== STEPS.PRICE) {
-  //       return onNext();
-  //     }
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+      if (step !== STEPS.PRICE) {
+        return onNext();
+      }
 
-  //     setIsLoading(true);
+      setIsLoading(true);
 
-  //     axios.post('/api/listings', data)
-  //     .then(() => {
-  //       toast.success('Listing created!');
-  //       router.refresh();
-  //       reset();
-  //       setStep(STEPS.CATEGORY)
-  //       rentModal.onClose();
-  //     })
-  //     .catch(() => {
-  //       toast.error('Something went wrong.');
-  //     })
-  //     .finally(() => {
-  //       setIsLoading(false);
-  //     })
-  //   }
+      axios.post('/api/listings', data)
+      .then(() => {
+        toast.success('Listing created!');
+        router.refresh();
+        reset();
+        setStep(STEPS.CATEGORY)
+        rentModal.onClose();
+      })
+      .catch(() => {
+        toast.error('Something went wrong.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+    }
 
   const actionLabel = useMemo(() => {
     //if last step, then return create, if not the next step
@@ -267,24 +267,15 @@ const RentModal = () => {
 
   return (
     <Modal
+      disabled={isLoading}
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={onNext}
+      onSubmit={handleSubmit(onSubmit)}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       title='Airbnb your home!'
       body={bodyContent}
-
-      //   disabled={isLoading}
-      //   isOpen={rentModal.isOpen}
-      //   title="Airbnb your home!"
-      //   actionLabel={actionLabel}
-      //   onSubmit={handleSubmit(onSubmit)}
-      //   secondaryActionLabel={secondaryActionLabel}
-      //   secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
-      //   onClose={rentModal.onClose}
-      //   body={bodyContent}
     />
   );
 };
