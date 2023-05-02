@@ -18,7 +18,7 @@ import CategoryInput from '../inputs/CategoryInput';
 
 // import Counter from "../inputs/Counter";
 
-// import CountrySelect from "../inputs/CountrySelect";
+import CountrySelect from "../inputs/CountrySelect";
 // import ImageUpload from '../inputs/ImageUpload';
 
 enum STEPS {
@@ -156,21 +156,21 @@ const RentModal = () => {
     </div>
   );
 
-  // if (step === STEPS.LOCATION) {
-  //   bodyContent = (
-  //     <div className="flex flex-col gap-8">
-  //       <Heading
-  //         title="Where is your place located?"
-  //         subtitle="Help guests find you!"
-  //       />
-  //       <CountrySelect
-  //         value={location}
-  //         onChange={(value) => setCustomValue('location', value)}
-  //       />
-  //       <Map center={location?.latlng} />
-  //     </div>
-  //   );
-  // }
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you!"
+        />
+        {/* <CountrySelect
+          value={location}
+          onChange={(value) => setCustomValue('location', value)}
+        />
+        <Map center={location?.latlng} /> */}
+      </div>
+    );
+  }
 
   // if (step === STEPS.INFO) {
   //   bodyContent = (
@@ -271,7 +271,7 @@ const RentModal = () => {
     <Modal
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
-      onSubmit={rentModal.onClose}
+      onSubmit={onNext}
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
