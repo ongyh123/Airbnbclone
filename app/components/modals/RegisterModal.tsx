@@ -47,6 +47,8 @@ const RegisterModal = () => {
       .then(() => {
         toast.success('Registered!');
         registerModal.onClose();
+        // after user registered successfully, the login Modal will open automatically.
+        loginModal.onOpen();
       })
       .catch((error) => {
         toast.error('Something went wrong');
